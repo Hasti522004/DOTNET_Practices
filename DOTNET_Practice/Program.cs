@@ -82,7 +82,7 @@ namespace Program
             var nickwithChange = nick with { DOB = new DateOnly(2005, 4, 4) };
             Console.WriteLine(nick);
             Console.WriteLine(nickwithChange);
-            Console.WriteLine(ReferenceEquals(nick, nick2));
+            Console.WriteLine(ReferenceEquals(nick, nick2)); //false
             var nickasClass = new Person1asClass
             {
                 Fullname = "Hasti Hajipara",
@@ -95,11 +95,16 @@ namespace Program
             };
             Console.WriteLine(nickasClass);
 
-            Console.WriteLine(nickasClass == nickasClass2);
-            Console.WriteLine(nick == nick2);
+            Console.WriteLine(nickasClass == nickasClass2); // flase
+            Console.WriteLine(nick == nick2); //true
             Console.WriteLine();
 
-            //record is mutable
+            // nullable type 
+            string str = null;
+            int? a = null;
+            int? c = null;
+            int b = a ?? 10;
+            Console.WriteLine($"{str} {b} {c}");
         }
     }
 }
