@@ -61,19 +61,19 @@ namespace ConstructorDemo
         {
             Console.WriteLine($"id : {id} ; name : {name}");
         }
-        static void Main(string[] args)
-        {
-            ConstructorDemo instance = new ConstructorDemo(2);
-            ConstructorDemo instance3 = new ConstructorDemo(3, "Hasti");
-            ConstructorDemo instance4 = new ConstructorDemo("namra", 4);
-            ConstructorDemo instance2 = new ConstructorDemo(instance);
-            ConstructorDemo instance5 = new ConstructorDemo("Jatan");
-            instance2.Display();
-            instance3.Display();
-            instance4.Display();
-            instance5.Display();
-            Console.WriteLine(10);
-        }
+        //static void Main(string[] args)
+        //{
+        //    ConstructorDemo instance = new ConstructorDemo(2);
+        //    ConstructorDemo instance3 = new ConstructorDemo(3, "Hasti");
+        //    ConstructorDemo instance4 = new ConstructorDemo("namra", 4);
+        //    ConstructorDemo instance2 = new ConstructorDemo(instance);
+        //    ConstructorDemo instance5 = new ConstructorDemo("Jatan");
+        //    instance2.Display();
+        //    instance3.Display();
+        //    instance4.Display();
+        //    instance5.Display();
+        //    Console.WriteLine(10);
+        //}
     }
 }
 // non static constructor = instance constructor
