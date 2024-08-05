@@ -1,5 +1,6 @@
 ﻿using DOTNET_Practice;
 using DestructorDemoNamespace;
+using RecordDemo;
 namespace Program
 {
     class Program
@@ -73,8 +74,32 @@ namespace Program
 
             string test3 = "Tefa";
             Product getProduct;
-            bool checkParse = Enum .TryParse(test3 , out getProduct);
+            bool checkParse = Enum.TryParse(test3 , out getProduct);
             Console.WriteLine(checkParse);
+
+            var nick = new PersonforRecord("Hasti Hajipara", new DateOnly(2004,2,5));
+            var nick2 = new PersonforRecord("Hasti Hajipara", new DateOnly(2004, 2, 5));
+            var nickwithChange = nick with { DOB = new DateOnly(2005, 4, 4) };
+            Console.WriteLine(nick);
+            Console.WriteLine(nickwithChange);
+            Console.WriteLine(ReferenceEquals(nick, nick2));
+            var nickasClass = new Person1asClass
+            {
+                Fullname = "Hasti Hajipara",
+                DOB = new DateOnly(2004, 5, 2)
+            };
+            var nickasClass2 = new Person1asClass
+            {
+                Fullname = "Hasti Hajipara",
+                DOB = new DateOnly(2004, 5, 2)
+            };
+            Console.WriteLine(nickasClass);
+
+            Console.WriteLine(nickasClass == nickasClass2);
+            Console.WriteLine(nick == nick2);
+            Console.WriteLine();
+
+            //record is mutable
         }
     }
 }
