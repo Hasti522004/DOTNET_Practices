@@ -105,6 +105,22 @@ namespace Program
             int? c = null;
             int b = a ?? 10;
             Console.WriteLine($"{str} {b} {c}");
+
+            //array example
+            string[] movie = { "RRR", "A", "B", "C" };
+            for(int i=0;i<movie.Length; i++)
+            {
+                Console.WriteLine(movie[i]);
+            }
+
+            List<string> list = new List<string>();
+            list.Add("Hasti");
+            list.Add("Dhara");
+
+            foreach(string s in list)
+            {
+                Console.WriteLine($"{s}");
+            }
         }
     }
 }
