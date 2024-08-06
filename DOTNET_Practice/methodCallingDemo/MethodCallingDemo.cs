@@ -25,14 +25,20 @@ namespace DOTNET_Practice.methodCallingDemo
         {
             x = 23;
         }
+        static void Method4(int x,params int[] ars)
+        {
+            
+        }
         public static void Main(string[] args)
         {
-            System.Console.WriteLine("from Method Calling Demo");
+            System.Console.WriteLine("Method Calling Demo");
             int a = 10;
             Console.WriteLine(a);
             Method2(a); // call by value
             Method1(ref a); // call by reference
-            Method3(out a);
+            Method3(out a); // call by output
+            Method4(1000); // call by params
+            Method4(1000, 23, 23, 134);
             Console.WriteLine(a);
         }
     }

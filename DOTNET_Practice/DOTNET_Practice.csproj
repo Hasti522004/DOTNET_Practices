@@ -5,7 +5,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <StartupObject>DOTNET_Practice.methodCallingDemo.MethodCallingDemo</StartupObject>
+    <StartupObject>DOTNET_Practice.Calculator.DelegatorDemo</StartupObject>
   </PropertyGroup>
 
 </Project>
