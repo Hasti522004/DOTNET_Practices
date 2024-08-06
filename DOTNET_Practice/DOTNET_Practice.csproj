@@ -5,7 +5,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <StartupObject>ExtenstionMethodDemo.ExtensionMethod</StartupObject>
+    <StartupObject>EventsDemo.EventsDemo</StartupObject>
   </PropertyGroup>
 
 </Project>
