@@ -23,6 +23,7 @@ namespace DOTNET_Practice.Calculator
             cal += Mul; // Multicast Delegate (Holds the reference of more than one function)
             cal(10, 20);
             Calculator cal2 = new Calculator(Mul);
+            cal -= Mul; 
             cal2(10, 20);
 
             // anonymous delegates (without method name)
