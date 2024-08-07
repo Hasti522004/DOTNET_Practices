@@ -55,11 +55,7 @@ namespace DOTNET_Practice.ExceptionHandlingDemo
                     {
                         StringBuilder stringBuilder = new StringBuilder();
                         stringBuilder.Append($"Message: {ex.Message} \n");
-                        stringBuilder.Append($"Source: {ex.Source} \n");
-                        stringBuilder.Append($"HelpLink: {ex.HelpLink} \n");
                         stringBuilder.Append($"StackTrace: {ex.StackTrace} \n");
-                        stringBuilder.Append($"GetType(): {ex.GetType()} \n");
-                        stringBuilder.Append($"GetType().Name: {ex.GetType().Name} \n");
 
                         StreamWriter streamWriter = new StreamWriter(filePath);
                         streamWriter.Write(stringBuilder.ToString());
@@ -68,24 +64,18 @@ namespace DOTNET_Practice.ExceptionHandlingDemo
                     }
                     else
                     {
-                        //To retain the Original Exception pass, this exceptiopm as a parameter
-                        //to the constructor of the current exception
                         string Message = filePath + " Does Not Exist";
-                        throw new FileNotFoundException(Message, ex);
+                        throw new FileNotFoundException(Message, ex); // Second Argument is inner Exception
                     }
                 }
             }
             //Outer Catch
             catch (Exception exception)
             {
-                //exception.Message will give the current exception message
-                //i.e. Message about File Not Found Exception
                 Console.WriteLine("\nCurrent Exception Details: ");
                 Console.WriteLine($"Current Exception Message: {exception.Message}");
-                Console.WriteLine($"Current Exception Source: {exception.Source}");
                 Console.WriteLine($"Current Exception StackTrace: {exception.StackTrace}");
-                //Check if InnerException is not null before accessing the InnerException properties
-                //else, you may get Null Reference Excception
+
                 if (exception.InnerException != null)
                 {
                     Console.WriteLine("\nInner Exception Details: ");

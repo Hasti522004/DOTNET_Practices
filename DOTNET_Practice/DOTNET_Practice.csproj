@@ -5,7 +5,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <StartupObject>DOTNET_Practice.ExceptionHandlingDemo.Program</StartupObject>
+    <StartupObject>DOTNET_Practice.CollectionDemo.CollectionDemo</StartupObject>
   </PropertyGroup>
 
 </Project>
