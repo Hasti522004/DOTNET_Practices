@@ -35,14 +35,27 @@ namespace DOTNET_Practice.Testing
         {
             _log = ilog;
         }
+
+        public void Display()
+        {
+            _log.Log();
+        }
         */
 
         //2. Property Injection
+        /*
         public ILogging _log { get; set; }
 
         public void Display()
         {
             _log.Log();
+        }
+        */
+
+        //3. Method Injection 
+        public void Display(ILogging logger)
+        {
+            logger.Log();
         }
     }
     internal class Class1
@@ -58,9 +71,16 @@ namespace DOTNET_Practice.Testing
             */
 
             // 2. Property Injection
+            /*
             LoggerUser log = new LoggerUser();
             log._log = new ConsoleLogging();
             log.Display();
+            */
+
+            //3. Method Injection
+            LoggerUser user = new LoggerUser();
+            ILogging log = new ConsoleLogging();
+            user.Display(log);
             
         }
     }
