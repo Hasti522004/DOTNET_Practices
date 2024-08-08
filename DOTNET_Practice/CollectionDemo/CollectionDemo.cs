@@ -172,4 +172,16 @@ namespace DOTNET_Practice.CollectionDemo
         }
 
     }
+    //concept of const and readonly
+    class ReadOnlyTest
+    {
+        int a = 10;
+        const int b = 20;
+        readonly int c;
+        
+        public ReadOnlyTest()
+        {
+            c = 30;  
+        }
+    }
 }
