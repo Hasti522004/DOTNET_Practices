@@ -5,7 +5,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <StartupObject>DOTNET_Practice.DependencyInjection2.Program</StartupObject>
+    <StartupObject>DOTNET_Practice.Testing.Class1</StartupObject>
   </PropertyGroup>
 
 </Project>
