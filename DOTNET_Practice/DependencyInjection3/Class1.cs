@@ -26,11 +26,20 @@ namespace DOTNET_Practice.Testing
     }
     class LoggerUser
     {
+        // 1. Constructor Injection
+        // Inject the logger dependency through the constructor
+
+        /*
         private ILogging _log;
         public LoggerUser(ILogging ilog)
         {
             _log = ilog;
         }
+        */
+
+        //2. Property Injection
+        public ILogging _log { get; set; }
+
         public void Display()
         {
             _log.Log();
@@ -40,9 +49,19 @@ namespace DOTNET_Practice.Testing
     {
         public static void Main(string[] args)
         {
+            //1. through Constructor injection
+
+            /*
             ILogging logging = new ConsoleLogging();
             LoggerUser user = new LoggerUser(logging);
             user.Display(); 
+            */
+
+            // 2. Property Injection
+            LoggerUser log = new LoggerUser();
+            log._log = new ConsoleLogging();
+            log.Display();
+            
         }
     }
 }
