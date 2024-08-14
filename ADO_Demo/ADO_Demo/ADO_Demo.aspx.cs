@@ -13,6 +13,28 @@ namespace ADO_Demo
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            // 1. ADO Basic Connections :
+
+            //SqlConnection con = new SqlConnection("Data Source=EV-LAP-00158\\MSSQLSERVEV;password=Welcome@123;Initial Catalog=student;Persist Security Info=True;User ID=sa;Encrypt=True;TrustServerCertificate=true");
+
+            //SqlCommand cmd = new SqlCommand("select * from hr.candidates", con);
+
+            //con.Open();
+
+            //SqlDataReader reader = cmd.ExecuteReader();
+
+            //GridView1.DataSource = reader;
+
+            //GridView1.DataBind();
+
+            //con.Close();
+
+            // 2. ADO SQLCommand Execute Query Types :
+
+            // (1) ExecuteReader - for multiple rows
+            // (2) ExecuteScalar - for single result
+            // (3) ExecuteNonQuery - for insert/update/delete
+
             try
             {
                 // Retrieve the connection string from web.config
@@ -32,7 +54,7 @@ namespace ADO_Demo
                     using (SqlCommand cmd2 = new SqlCommand("select count(*) from product_json;", con))
                     {
                         int totalrows = (int)cmd2.ExecuteScalar();
-                        Response.Write("Total Rows = " + totalrows.ToString());
+                        Response.Write("Total Rows = " + totalrows.ToString() +"<br/>");
                     }   
                     using(SqlCommand cmd3 = new SqlCommand("insert into hr.candidates(fullname) values ('Jatan');", con))
                     {
