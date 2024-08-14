@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 using System.Configuration;
 using System.Runtime.InteropServices;
 using System.Data;
+using System.Runtime.Remoting.Messaging;
 namespace ADO_Demo
 {
     public partial class ADO_Demo : System.Web.UI.Page
@@ -112,6 +113,14 @@ namespace ADO_Demo
                             }
                         }
                     }
+
+                    // no need to open and close connection
+                    SqlDataAdapter da = new SqlDataAdapter("select * from hr.employees;", con);
+                    DataSet ds = new DataSet();
+                    da.Fill(ds);
+
+                    GridView3.DataSource = ds;
+                    GridView3.DataBind();
                 }
             }
             catch (Exception ex)
