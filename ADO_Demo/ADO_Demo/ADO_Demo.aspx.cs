@@ -114,7 +114,7 @@ namespace ADO_Demo
                         }
                     }
 
-                    // no need to open and close connection
+                    // no need to open and close connection in SqlDataAdapter
                     SqlDataAdapter da = new SqlDataAdapter("select * from hr.employees;", con);
                     DataSet ds = new DataSet();
                     da.Fill(ds);
