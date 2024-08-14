@@ -62,6 +62,10 @@ namespace ADO_Demo
                         int affectedRows = cmd3.ExecuteNonQuery();
                         Response.Write($"\nTotal Affected Rows : {affectedRows.ToString()}");   
                     }
+
+                    // SQLDataReader Demo
+
+                    // Read() method
                     using (SqlCommand cmd4 = new SqlCommand("SELECT * FROM candidates;", con))
                     {
                         using (SqlDataReader reader = cmd4.ExecuteReader())
@@ -91,6 +95,21 @@ namespace ADO_Demo
                             }
                             GridView1.DataSource = table;
                             GridView1.DataBind();
+                        }
+                    }
+
+                    // SQLDataReader NextResult() method
+                    using(SqlCommand cmd5 = new SqlCommand("select * from candidates;select * from hr.employees;",con))
+                    {
+                        using (SqlDataReader reader = cmd5.ExecuteReader())
+                        {
+                            GridView1.DataSource =reader;
+                            GridView1.DataBind();
+                            while(reader.NextResult())
+                            {
+                                GridView2.DataSource = reader;
+                                GridView2.DataBind();
+                            }
                         }
                     }
                 }
