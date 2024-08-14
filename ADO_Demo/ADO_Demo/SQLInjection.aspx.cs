@@ -49,8 +49,22 @@ namespace ADO_Demo
             //        GridView1.DataBind();
             //    }
             //}
-            
+
             // SQL Prevention using Stored Procedure
+
+            /*
+             * Store Procedure in SQL 
+             * 
+            create Procedure spGetFullname
+            @fullname varchar(255)
+            as 
+            begin 
+	            select * from hr.employees
+	            where fullname like @fullname + '%'
+            end
+             */
+
+            // exec spGetFullname @fullname=N'ja'' ; delete from hr.employees; --'
 
             string CS = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
             using (SqlConnection conn = new SqlConnection(CS))

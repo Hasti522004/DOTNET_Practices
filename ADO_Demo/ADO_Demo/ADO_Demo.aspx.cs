@@ -7,6 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Configuration;
 using System.Runtime.InteropServices;
+using System.Data;
 namespace ADO_Demo
 {
     public partial class ADO_Demo : System.Web.UI.Page
@@ -60,6 +61,37 @@ namespace ADO_Demo
                     {
                         int affectedRows = cmd3.ExecuteNonQuery();
                         Response.Write($"\nTotal Affected Rows : {affectedRows.ToString()}");   
+                    }
+                    using (SqlCommand cmd4 = new SqlCommand("SELECT * FROM candidates;", con))
+                    {
+                        using (SqlDataReader reader = cmd4.ExecuteReader())
+                        {
+                            DataTable table = new DataTable();
+                            table.Columns.Add("CandidateID");
+                            table.Columns.Add("Name");
+                            table.Columns.Add("Position");
+                            table.Columns.Add("YearsOfExperience");
+                            table.Columns.Add("Email");
+                            table.Columns.Add("PhoneNumber");
+                            table.Columns.Add("NewExperience");
+                            while (reader.Read())
+                            {
+                                DataRow datarow = table.NewRow();
+                                int exp = Convert.ToInt32(reader["YearsOfExperience"]);
+                                int newexp = exp + 1;
+                                datarow["CandidateID"] = reader["CandidateID"];
+                                datarow["Name"] = reader["Name"];
+                                datarow["Position"] = reader["Position"];
+                                datarow["YearsOfExperience"] = reader["YearsOfExperience"];
+                                datarow["Email"] = reader["Email"];
+                                datarow["PhoneNumber"] = reader["PhoneNumber"];
+                                datarow["NewExperience"] = newexp;
+
+                                table.Rows.Add(datarow);    
+                            }
+                            GridView1.DataSource = table;
+                            GridView1.DataBind();
+                        }
                     }
                 }
             }
