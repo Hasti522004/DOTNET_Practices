@@ -92,7 +92,7 @@ namespace LINQ_Demo
 
             var groupQuery = from s in studentList
                              group s by s.Age;
-
+            var groupMethod = studentList.GroupBy(s => s.Age).ToList();
             foreach (var item in groupQuery)
             {
                 Console.WriteLine("Age Group: {0}",item.Key);
