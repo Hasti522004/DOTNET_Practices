@@ -3,20 +3,21 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Entity_Framework_Demo.Controllers
 {
-    [Route("api/currency")]
+    [Route("api/language")]
     [ApiController]
-    public class CurrencyController : Controller
+    public class LanguageController : Controller
     {
         private readonly AppDbContext _appDbContext;
 
-        public CurrencyController(AppDbContext appDbContext)
+        public LanguageController(AppDbContext appDbContext)
         {
             _appDbContext = appDbContext;
         }
+
         [HttpGet("")]
-        public ActionResult GetAllCurrency()
+        public ActionResult GetLanguages()
         {
-            var result = _appDbContext.Currencys.ToList();
+            var result = _appDbContext.Languages.ToList();
             return Ok(result);
         }
     }
