@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Entity_Framework_Demo.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240820094343_editLanguagetable")]
-    partial class editLanguagetable
+    [Migration("20240820122716_addnewtables")]
+    partial class addnewtables
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,35 @@ namespace Entity_Framework_Demo.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Entity_Framework_Demo.Data.BookPrice", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BooksId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CurrencyId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BooksId");
+
+                    b.HasIndex("CurrencyId");
+
+                    b.ToTable("BookPrices");
+                });
 
             modelBuilder.Entity("Entity_Framework_Demo.Data.Books", b =>
                 {
@@ -60,6 +89,27 @@ namespace Entity_Framework_Demo.Migrations
                     b.ToTable("Books");
                 });
 
+            modelBuilder.Entity("Entity_Framework_Demo.Data.Currency", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Currencys");
+                });
+
             modelBuilder.Entity("Entity_Framework_Demo.Data.Language", b =>
                 {
                     b.Property<int>("Id")
@@ -81,6 +131,25 @@ namespace Entity_Framework_Demo.Migrations
                     b.ToTable("Languages");
                 });
 
+            modelBuilder.Entity("Entity_Framework_Demo.Data.BookPrice", b =>
+                {
+                    b.HasOne("Entity_Framework_Demo.Data.Books", "Books")
+                        .WithMany("BookPrices")
+                        .HasForeignKey("BooksId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entity_Framework_Demo.Data.Currency", "Currency")
+                        .WithMany("BookPrices")
+                        .HasForeignKey("CurrencyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Books");
+
+                    b.Navigation("Currency");
+                });
+
             modelBuilder.Entity("Entity_Framework_Demo.Data.Books", b =>
                 {
                     b.HasOne("Entity_Framework_Demo.Data.Language", "Language")
@@ -90,6 +159,16 @@ namespace Entity_Framework_Demo.Migrations
                         .IsRequired();
 
                     b.Navigation("Language");
+                });
+
+            modelBuilder.Entity("Entity_Framework_Demo.Data.Books", b =>
+                {
+                    b.Navigation("BookPrices");
+                });
+
+            modelBuilder.Entity("Entity_Framework_Demo.Data.Currency", b =>
+                {
+                    b.Navigation("BookPrices");
                 });
 
             modelBuilder.Entity("Entity_Framework_Demo.Data.Language", b =>

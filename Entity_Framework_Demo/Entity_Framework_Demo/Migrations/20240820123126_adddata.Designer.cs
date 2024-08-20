@@ -4,6 +4,7 @@ using Entity_Framework_Demo.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Entity_Framework_Demo.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240820123126_adddata")]
+    partial class adddata
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -152,38 +155,6 @@ namespace Entity_Framework_Demo.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Languages");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "Mumbai",
-                            Title = "Hindi"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "Gujrat",
-                            Title = "Gujrati"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Description = "USA",
-                            Title = "English"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Description = "Tamilnadu",
-                            Title = "Tamil"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Description = "Iran",
-                            Title = "Urdu"
-                        });
                 });
 
             modelBuilder.Entity("Entity_Framework_Demo.Data.BookPrice", b =>
