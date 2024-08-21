@@ -59,5 +59,12 @@ namespace Entity_Framework_Demo.Controllers
             var result = await _appDbContext.Languages.Where(x => x.Title == name && (string.IsNullOrEmpty(desc) || x.Description == desc)).ToListAsync();
             return Ok(result);
         }
+
+        [HttpPost("all")]
+        public async Task<IActionResult> GetLanguageByList([FromBody] List<int> ids)
+        {
+            var result = await _appDbContext.Languages.Where(x=> ids.Contains(x.Id)).ToListAsync();
+            return Ok(result);
+        }
     }
 }
