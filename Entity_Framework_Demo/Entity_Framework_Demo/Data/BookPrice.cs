@@ -7,9 +7,8 @@
         public decimal Amount { get; set; }
         public int CurrencyId { get; set; }
 
+        // Navigation Properties
+        public Books Book { get; set; }
         public Currency Currency { get; set; }
-
-        public Books Books { get; set; }
-
     }
 }

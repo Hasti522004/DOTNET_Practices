@@ -1,4 +1,6 @@
-﻿namespace Entity_Framework_Demo.Data
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Entity_Framework_Demo.Data
 {
     public class Books
     {
@@ -9,7 +11,10 @@
         public bool IsActive { get; set; }
         public DateTime CreatedOn { get; set; }
         public int LanguageId { get; set; }
+
+        //navigation Property
         public Language Language { get; set; }
-        public ICollection<BookPrice> BookPrices { get; set; }
+        public ICollection<BookPrice> BookPrices { get; set; } = new List<BookPrice>();
+
     }
 }

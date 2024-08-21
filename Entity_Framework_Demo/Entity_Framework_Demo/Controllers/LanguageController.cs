@@ -64,7 +64,7 @@ namespace Entity_Framework_Demo.Controllers
         public async Task<IActionResult> GetLanguageByList([FromBody] List<int> ids)
         {
             var result = await _appDbContext.Languages.Where(x=> ids.Contains(x.Id))
-                .Select(x => new Language()
+                .Select(x => new 
                 {
                     Id = x.Id
                     , Title = x.Title

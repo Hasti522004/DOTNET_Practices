@@ -6,6 +6,6 @@
         public string Title { get; set; }
         public string Description { get; set; }
 
-        public ICollection<Books> Books { get; set; }
+        public ICollection<Books> Books { get; set; } = new List<Books>();
     }
 }

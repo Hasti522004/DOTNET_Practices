@@ -36,15 +36,12 @@ namespace Entity_Framework_Demo.Migrations
                     b.Property<int>("BookId")
                         .HasColumnType("int");
 
-                    b.Property<int>("BooksId")
-                        .HasColumnType("int");
-
                     b.Property<int>("CurrencyId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BooksId");
+                    b.HasIndex("BookId");
 
                     b.HasIndex("CurrencyId");
 
@@ -186,11 +183,31 @@ namespace Entity_Framework_Demo.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Entity_Framework_Demo.Data.Student", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Students");
+                });
+
             modelBuilder.Entity("Entity_Framework_Demo.Data.BookPrice", b =>
                 {
-                    b.HasOne("Entity_Framework_Demo.Data.Books", "Books")
+                    b.HasOne("Entity_Framework_Demo.Data.Books", "Book")
                         .WithMany("BookPrices")
-                        .HasForeignKey("BooksId")
+                        .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -200,7 +217,7 @@ namespace Entity_Framework_Demo.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Books");
+                    b.Navigation("Book");
 
                     b.Navigation("Currency");
                 });

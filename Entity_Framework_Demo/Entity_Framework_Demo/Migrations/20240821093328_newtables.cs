@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace Entity_Framework_Demo.Migrations
 {
     /// <inheritdoc />
-    public partial class addnewtables : Migration
+    public partial class newtables : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -71,15 +73,14 @@ namespace Entity_Framework_Demo.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     BookId = table.Column<int>(type: "int", nullable: false),
                     Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    CurrencyId = table.Column<int>(type: "int", nullable: false),
-                    BooksId = table.Column<int>(type: "int", nullable: false)
+                    CurrencyId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_BookPrices", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_BookPrices_Books_BooksId",
-                        column: x => x.BooksId,
+                        name: "FK_BookPrices_Books_BookId",
+                        column: x => x.BookId,
                         principalTable: "Books",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -91,10 +92,33 @@ namespace Entity_Framework_Demo.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "Currencys",
+                columns: new[] { "Id", "Description", "Title" },
+                values: new object[,]
+                {
+                    { 1, "Indian INR", "INR" },
+                    { 2, "Doller", "Doller" },
+                    { 3, "Euro", "Euro" },
+                    { 4, "Dinar", "Dinar" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Languages",
+                columns: new[] { "Id", "Description", "Title" },
+                values: new object[,]
+                {
+                    { 1, "Mumbai", "Hindi" },
+                    { 2, "Gujrat", "Gujrati" },
+                    { 3, "USA", "English" },
+                    { 4, "Tamilnadu", "Tamil" },
+                    { 5, "Iran", "Urdu" }
+                });
+
             migrationBuilder.CreateIndex(
-                name: "IX_BookPrices_BooksId",
+                name: "IX_BookPrices_BookId",
                 table: "BookPrices",
-                column: "BooksId");
+                column: "BookId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_BookPrices_CurrencyId",

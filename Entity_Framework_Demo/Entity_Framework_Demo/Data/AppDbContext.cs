@@ -11,6 +11,21 @@ namespace Entity_Framework_Demo.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Books>()
+                .HasOne(b => b.Language)
+                .WithMany(l => l.Books)
+                .HasForeignKey(b => b.LanguageId);
+
+            modelBuilder.Entity<BookPrice>()
+                .HasOne(bp => bp.Book)
+                .WithMany(b => b.BookPrices)
+                .HasForeignKey(b => b.BookId);
+
+            modelBuilder.Entity<BookPrice>()
+                .HasOne(bp => bp.Currency)
+                .WithMany(b => b.BookPrices)
+                .HasForeignKey(b => b.CurrencyId);
+
             modelBuilder.Entity<Currency>().HasData(
                 new Currency() { Id = 1, Title = "INR", Description = "Indian INR" },
                 new Currency() { Id = 2, Title = "Doller", Description = "Doller" },
@@ -22,7 +37,7 @@ namespace Entity_Framework_Demo.Data
                 new Language() { Id = 2, Title = "Gujrati", Description = "Gujrat" },
                 new Language() { Id = 3, Title = "English", Description = "USA" },
                 new Language() { Id = 4, Title = "Tamil", Description = "Tamilnadu" },
-                new Currency() { Id = 5, Title = "Urdu", Description = "Iran" }
+                new Language() { Id = 5, Title = "Urdu", Description = "Iran" }
             );
         }
       
@@ -31,5 +46,6 @@ namespace Entity_Framework_Demo.Data
         public DbSet<Language> Languages { get; set; }
         public DbSet<Currency> Currencys { get; set; }
         public DbSet<BookPrice> BookPrices { get; set; }
+        public DbSet<Student> Students { get; set; }
     }
 }

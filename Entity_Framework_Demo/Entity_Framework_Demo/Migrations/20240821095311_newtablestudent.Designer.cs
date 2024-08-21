@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Entity_Framework_Demo.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240820123126_adddata")]
-    partial class adddata
+    [Migration("20240821095311_newtablestudent")]
+    partial class newtablestudent
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,15 +39,12 @@ namespace Entity_Framework_Demo.Migrations
                     b.Property<int>("BookId")
                         .HasColumnType("int");
 
-                    b.Property<int>("BooksId")
-                        .HasColumnType("int");
-
                     b.Property<int>("CurrencyId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BooksId");
+                    b.HasIndex("BookId");
 
                     b.HasIndex("CurrencyId");
 
@@ -155,13 +152,65 @@ namespace Entity_Framework_Demo.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Languages");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Mumbai",
+                            Title = "Hindi"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Gujrat",
+                            Title = "Gujrati"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "USA",
+                            Title = "English"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "Tamilnadu",
+                            Title = "Tamil"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Description = "Iran",
+                            Title = "Urdu"
+                        });
+                });
+
+            modelBuilder.Entity("Entity_Framework_Demo.Data.Student", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Students");
                 });
 
             modelBuilder.Entity("Entity_Framework_Demo.Data.BookPrice", b =>
                 {
-                    b.HasOne("Entity_Framework_Demo.Data.Books", "Books")
+                    b.HasOne("Entity_Framework_Demo.Data.Books", "Book")
                         .WithMany("BookPrices")
-                        .HasForeignKey("BooksId")
+                        .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -171,7 +220,7 @@ namespace Entity_Framework_Demo.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Books");
+                    b.Navigation("Book");
 
                     b.Navigation("Currency");
                 });

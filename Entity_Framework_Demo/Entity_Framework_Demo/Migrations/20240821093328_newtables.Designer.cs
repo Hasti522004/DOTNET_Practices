@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Entity_Framework_Demo.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240820123446_adddatainlanguage")]
-    partial class adddatainlanguage
+    [Migration("20240821093328_newtables")]
+    partial class newtables
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,15 +39,12 @@ namespace Entity_Framework_Demo.Migrations
                     b.Property<int>("BookId")
                         .HasColumnType("int");
 
-                    b.Property<int>("BooksId")
-                        .HasColumnType("int");
-
                     b.Property<int>("CurrencyId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BooksId");
+                    b.HasIndex("BookId");
 
                     b.HasIndex("CurrencyId");
 
@@ -180,14 +177,20 @@ namespace Entity_Framework_Demo.Migrations
                             Id = 4,
                             Description = "Tamilnadu",
                             Title = "Tamil"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Description = "Iran",
+                            Title = "Urdu"
                         });
                 });
 
             modelBuilder.Entity("Entity_Framework_Demo.Data.BookPrice", b =>
                 {
-                    b.HasOne("Entity_Framework_Demo.Data.Books", "Books")
+                    b.HasOne("Entity_Framework_Demo.Data.Books", "Book")
                         .WithMany("BookPrices")
-                        .HasForeignKey("BooksId")
+                        .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -197,7 +200,7 @@ namespace Entity_Framework_Demo.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Books");
+                    b.Navigation("Book");
 
                     b.Navigation("Currency");
                 });
