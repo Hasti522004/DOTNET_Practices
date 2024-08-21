@@ -25,17 +25,24 @@ namespace Entity_Framework_Demo.Controllers
             return Ok(result);
         }
 
-        [HttpGet("{id:int}")]
+        [HttpGet("{id:int}")] // Solve ambiguity Error add :int
         public async Task<IActionResult> GetLanguagebyIdAsync([FromRoute] int id)
         {
             var result = _appDbContext.Languages.FindAsync(id);
             return Ok(result);
         }
 
-        [HttpGet("{name}")]
-        public async Task<IActionResult> GetLanguageByNameAsync([FromRoute] string name)
+        //[HttpGet("{name}")]
+        //public async Task<IActionResult> GetLanguageByNameAsync([FromRoute] string name)
+        //{
+        //    var result =await _appDbContext.Languages.Where(x=>x.Title == name).FirstOrDefaultAsync();
+        //    return Ok(result);
+        //}
+
+        [HttpGet("{name}/{desc}")]
+        public async Task<IActionResult> GetLanguageByNameAsync([FromRoute] string name, [FromRoute] string desc)
         {
-            var result =await _appDbContext.Languages.Where(x=>x.Title == name).FirstOrDefaultAsync();
+            var result = await _appDbContext.Languages.FirstOrDefaultAsync(x => x.Title == name && x.Description == desc);
             return Ok(result);
         }
     }
