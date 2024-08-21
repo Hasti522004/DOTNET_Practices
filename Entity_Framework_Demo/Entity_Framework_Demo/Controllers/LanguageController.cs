@@ -39,10 +39,17 @@ namespace Entity_Framework_Demo.Controllers
         //    return Ok(result);
         //}
 
-        [HttpGet("{name}/{desc}")]
-        public async Task<IActionResult> GetLanguageByNameAsync([FromRoute] string name, [FromRoute] string desc)
+        //[HttpGet("{name}/{desc}")]
+        //public async Task<IActionResult> GetLanguageByNameAsync([FromRoute] string name, [FromRoute] string desc)
+        //{
+        //    var result = await _appDbContext.Languages.FirstOrDefaultAsync(x => x.Title == name && x.Description == desc);
+        //    return Ok(result);
+        //}
+
+        [HttpGet("{name}")]
+        public async Task<IActionResult> GetLanguageByNameAsync([FromRoute] string name, [FromQuery] string? desc)
         {
-            var result = await _appDbContext.Languages.FirstOrDefaultAsync(x => x.Title == name && x.Description == desc);
+            var result = await _appDbContext.Languages.FirstOrDefaultAsync(x => x.Title == name && (string.IsNullOrEmpty(desc) || x.Description == desc));
             return Ok(result);
         }
     }
