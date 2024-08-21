@@ -1,6 +1,0 @@
-@EFPractice_HostAddress = http://localhost:5267
-
-GET {{EFPractice_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

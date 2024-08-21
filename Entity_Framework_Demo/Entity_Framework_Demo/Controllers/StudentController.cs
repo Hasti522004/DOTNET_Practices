@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Entity_Framework_Demo.Controllers
 {
+    //using code first Approach
     [Route("API/Student")]
     [ApiController]
     public class StudentController : Controller
