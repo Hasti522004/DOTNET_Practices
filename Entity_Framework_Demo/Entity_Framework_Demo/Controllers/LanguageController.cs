@@ -25,10 +25,17 @@ namespace Entity_Framework_Demo.Controllers
             return Ok(result);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<IActionResult> GetLanguagebyIdAsync([FromRoute] int id)
         {
             var result = _appDbContext.Languages.FindAsync(id);
+            return Ok(result);
+        }
+
+        [HttpGet("{name}")]
+        public async Task<IActionResult> GetLanguageByNameAsync([FromRoute] string name)
+        {
+            var result =await _appDbContext.Languages.Where(x=>x.Title == name).FirstOrDefaultAsync();
             return Ok(result);
         }
     }
