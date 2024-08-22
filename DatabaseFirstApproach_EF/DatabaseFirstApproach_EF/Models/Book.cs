@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DatabaseFirstApproach_EF.Models;
 
@@ -7,10 +8,10 @@ public partial class Book
 {
     public int BookId { get; set; }
 
-    public string Title { get; set; } = null!;
+    public string Title { get; set; }
 
-    public string Type { get; set; } = null!;
-
+    public string Type { get; set; }
+    [Required]
     public int PubId { get; set; }
 
     public decimal? Price { get; set; }
