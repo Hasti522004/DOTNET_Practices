@@ -25,7 +25,7 @@ namespace EF_LoadingDemo.Controllers
             // call Query and fetch data when villa.Count method is Called.
             // var TotalVillas = villa.Count();
 
-            List<Villa> villas = _appDbContext.Villas.ToList();
+            // List<Villa> villas = _appDbContext.Villas.ToList();
 
             //var TotalVillas = villas.Count();
 
@@ -41,10 +41,20 @@ namespace EF_LoadingDemo.Controllers
             //{
             //    villa.eminity = _appDbContext.VillaEminity.Where(u => u.VillaId == villa.Id).ToList();
             //}
-            
+
             //2. Eager Loading
             // Load all data in one Query Call only
-            List<Villa> eager_villas = _appDbContext.Villas.Include(u=>u.eminity).ToList();
+            // List<Villa> eager_villas = _appDbContext.Villas.Include(u=>u.eminity).ToList();
+
+            //3. Explicit Loading
+
+            Villa? villaTemp = _appDbContext.Villas.FirstOrDefault(a => a.Id == 1);
+            _appDbContext.Entry(villaTemp).Collection(u => u.eminity).Load();
+
+            VillaEminity? villaEminityTemp = _appDbContext.VillaEminity.FirstOrDefault(a => a.Id == 1);
+            _appDbContext.Entry(villaEminityTemp).Reference(u => u.Villa).Load();
+
+            List<Villa> villas = _appDbContext.Villas.ToList();
 
             return View();
         }
