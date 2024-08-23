@@ -54,8 +54,6 @@ namespace EF_LoadingDemo.Controllers
             VillaEminity? villaEminityTemp = _appDbContext.VillaEminity.FirstOrDefault(a => a.Id == 1);
             _appDbContext.Entry(villaEminityTemp).Reference(u => u.Villa).Load();
 
-            List<Villa> villas = _appDbContext.Villas.ToList();
-
             return View();
         }
 

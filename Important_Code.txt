@@ -1,0 +1,20 @@
+Packages :
+1. MicrosoftEntityFrameWorkCore.SqlServer
+2. MicrosoftEntityFrameWorkCore.Design
+3. MicrosoftEntityFrameWorkCore.Tools
+
+Connection String : "Data Source=EV-LAP-00158\\MSSQLSERVEV;password=Welcome@123;Initial Catalog=student;Persist Security Info=True;User ID=sa;Encrypt=True;TrustServerCertificate=true"
+
+AppDbContext.cs :
+
+public class AppDbContext : DbContext
+{
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+    {
+        
+    }
+}
+
+program.cs :
+
+ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DBCS")));
