@@ -1,5 +1,6 @@
 using EF_LoadingDemo.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace EF_LoadingDemo.Controllers
@@ -26,14 +27,24 @@ namespace EF_LoadingDemo.Controllers
 
             List<Villa> villas = _appDbContext.Villas.ToList();
 
-            var TotalVillas = villas.Count();
+            //var TotalVillas = villas.Count();
 
-            for (int i = 0; i < TotalVillas; i++)
-            {
-                villas[i].eminity = _appDbContext.VillaEminity.Where(u=>u.VillaId == villas[i].Id).ToList();
-            }
+            // Child Class not load By Default in lazy loading. We need to call explicitly
+            // call Query n+1 times
+            //for (int i = 0; i < TotalVillas; i++)
+            //{
+            //    villas[i].eminity = _appDbContext.VillaEminity.Where(u=>u.VillaId == villas[i].Id).ToList();
+            //}
 
-
+            // Work same as above for loop
+            //foreach (Villa villa in villas)
+            //{
+            //    villa.eminity = _appDbContext.VillaEminity.Where(u => u.VillaId == villa.Id).ToList();
+            //}
+            
+            //2. Eager Loading
+            // Load all data in one Query Call only
+            List<Villa> eager_villas = _appDbContext.Villas.Include(u=>u.eminity).ToList();
 
             return View();
         }
