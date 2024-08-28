@@ -54,6 +54,17 @@ namespace DapperDemoAPI.Controllers
             await connection.ExecuteAsync("delete from SuperHeros where id = @Id",new {Id = heroId});
             return Ok(await SelectAllHeroes(connection));
         }
+
+        [HttpGet("usingproc/{heroId}")]
+        public async Task<ActionResult<List<SuperHero>>> ProcedureGetId(int heroId)
+        {
+            using var connection = new SqlConnection(_config.GetConnectionString("DefaultConnection"));
+            var parameter = new DynamicParameters();
+            parameter.Add("Id", heroId, System.Data.DbType.Int32, System.Data.ParameterDirection.Input);
+            var hero = await connection.QueryFirstOrDefaultAsync("superheroId",parameter,commandType: System.Data.CommandType.StoredProcedure);
+            return Ok(hero);
+        }
+
         private static async Task<IEnumerable<SuperHero>> SelectAllHeroes(SqlConnection connection)
         {
             return await connection.QueryAsync<SuperHero>("select * from SuperHeros");
