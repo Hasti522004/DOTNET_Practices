@@ -66,7 +66,7 @@ namespace DapperDemoAPI.Controllers
         }
 
         private static async Task<IEnumerable<SuperHero>> SelectAllHeroes(SqlConnection connection)
-        {
+        { 
             return await connection.QueryAsync<SuperHero>("select * from SuperHeros");
         }
 
