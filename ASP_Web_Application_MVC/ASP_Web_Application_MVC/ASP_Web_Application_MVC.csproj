@@ -182,6 +182,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Student\Index.cshtml" />
     <Content Include="Views\Student\Edit.cshtml" />
+    <Content Include="Views\Shared\_LayoutPage1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
