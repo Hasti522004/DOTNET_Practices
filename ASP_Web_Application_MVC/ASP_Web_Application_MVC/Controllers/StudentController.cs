@@ -18,9 +18,14 @@ namespace ASP_Web_Application_MVC.Controllers
             new Student() { StudentId = 4, StudentName = "Chris" , Age = 17 } ,
             new Student() { StudentId = 4, StudentName = "Rob" , Age = 19 }
         };
+
+        
+
         // GET: Student
         public ActionResult Index()
         {
+            ViewBag.stulist = studentlist;
+            ViewData["stu"] = studentlist;
             return View(studentlist.OrderBy(s => s.StudentId).ToList());
         }
         [HttpGet]
