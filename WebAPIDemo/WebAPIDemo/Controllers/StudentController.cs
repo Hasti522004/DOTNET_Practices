@@ -8,14 +8,23 @@ namespace WebAPIDemo.Controllers
     public class StudentController : Controller
     {
         [HttpGet]
+        [Route("All")]
         public IEnumerable<Student> GetStudents()
         {
             return CollegeRepository.students;
         }
-        [HttpGet("{id}")]
+
+        [HttpGet("{id:int}",Name ="GetStudentById")]
         public Student GetStudentById(int id)
         {
             return CollegeRepository.students.Where(s => s.Id == id).FirstOrDefault();
+        }
+
+        [HttpGet]
+        [Route("{name}",Name = "GetStudentByName")]
+        public Student GetStudentById(string name)
+        {
+            return CollegeRepository.students.Where(s => s.Name == name).FirstOrDefault();
         }
     }
 }
