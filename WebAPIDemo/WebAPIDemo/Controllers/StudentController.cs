@@ -21,7 +21,7 @@ namespace WebAPIDemo.Controllers
         }
 
         [HttpGet]
-        [Route("{name}",Name = "GetStudentByName")]
+        [Route("{name:alpha}",Name = "GetStudentByName")]
         public Student GetStudentById(string name)
         {
             return CollegeRepository.students.Where(s => s.Name == name).FirstOrDefault();
