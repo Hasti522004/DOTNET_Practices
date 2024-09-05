@@ -3,6 +3,16 @@
 }
 
 <main>
+    <h2>Logs : </h2>
+    <ul>
+        @if(ViewBag.LogMessage != null)
+            {
+                foreach(var message in ViewBag.LogMessage as List<String>)
+                {
+                    <li>@message</li>
+                }
+            }
+    </ul>
     <section class="row" aria-labelledby="aspnetTitle">
         <h1 id="title">ASP.NET</h1>
         <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
