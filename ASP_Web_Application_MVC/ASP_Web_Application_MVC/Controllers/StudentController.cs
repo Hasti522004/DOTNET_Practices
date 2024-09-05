@@ -1,4 +1,6 @@
 ﻿using ASP_Web_Application_MVC.Models;
+using ASP_Web_Application_MVC.Validator;
+using FluentValidation.Results;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +21,7 @@ namespace ASP_Web_Application_MVC.Controllers
             new Student() { StudentId = 4, StudentName = "Rob" , Age = 19 }
         };
 
-        
+        IList<string> errors;
 
         // GET: Student
         public ActionResult Index()
@@ -32,6 +34,7 @@ namespace ASP_Web_Application_MVC.Controllers
         public ActionResult Edit(int id)
         {
             var std = studentlist.Where(s => s.StudentId == id).FirstOrDefault();
+            Console.WriteLine($"id : {id}");
             return View(std);
         }
         [HttpPost]
@@ -40,6 +43,20 @@ namespace ASP_Web_Application_MVC.Controllers
             if (ModelState.IsValid)
             {
                 var student = studentlist.Where(s => s.StudentId == std.StudentId).FirstOrDefault();
+                StudentValidator validator = new StudentValidator();
+                ValidationResult result = validator.Validate(std);
+                if (result.IsValid)
+                {
+
+                }
+                else
+                {
+                    foreach (ValidationFailure failure in result.Errors)
+                    {
+                        ModelState.AddModelError(failure.PropertyName,failure.ErrorMessage);
+                    }
+                }
+
                 studentlist.Remove(student);
                 studentlist.Add(std);
                 return RedirectToAction("Index");
