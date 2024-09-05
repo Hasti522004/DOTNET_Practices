@@ -16,6 +16,10 @@ namespace WebAPIDemo.Controllers
         }
 
         [HttpGet("{id:int}",Name ="GetStudentById")]
+        [ProducesResponseType(typeof(int), 200)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult<Student> GetStudentById(int id)
         {
             // BadRequest - 400 - Client Error
