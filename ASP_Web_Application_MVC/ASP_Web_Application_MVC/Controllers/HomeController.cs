@@ -6,10 +6,12 @@ using System.Web.Mvc;
 
 namespace ASP_Web_Application_MVC.Controllers
 {
+    [HandleError]
     public class HomeController : Controller
     {
         public ActionResult Index()
         {
+            throw new Exception("This is Unhandle Exception....");
             return View();
         }
 

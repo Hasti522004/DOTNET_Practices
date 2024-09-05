@@ -8,17 +8,21 @@
 }
 @Html.Partial("_MenuBar")
 <h2>Index</h2>
+
 <h2> Data From ViewBag </h2>
+
 @foreach(var i in ViewBag.stulist)
-        {
-            <h3>@i.StudentName</h3>
-        }
+{
+ <h3>@i.StudentName</h3>
+}
+
 <h2>Data From ViewData </h2>
 
 @foreach(var i in ViewData["stu"] as IList<ASP_Web_Application_MVC.Models.Student>)
-            {
-                <h2>@i.StudentName</h2>
-            }
+{
+ <h2>@i.StudentName</h2>
+}
+
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
