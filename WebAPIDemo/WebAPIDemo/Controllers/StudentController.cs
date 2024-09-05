@@ -9,18 +9,31 @@ namespace WebAPIDemo.Controllers
     {
         [HttpGet]
         [Route("All")]
-        public IEnumerable<Student> GetStudents()
+        public ActionResult<IEnumerable<Student>> GetStudents()
         {
-            return CollegeRepository.students;
+            // Ok - 200 - Success
+            return Ok(CollegeRepository.students);
         }
 
         [HttpGet("{id:int}",Name ="GetStudentById")]
-        public Student GetStudentById(int id)
+        public ActionResult<Student> GetStudentById(int id)
         {
-            return CollegeRepository.students.Where(s => s.Id == id).FirstOrDefault();
+            // BadRequest - 400 - Client Error
+            if (id <= 0)
+                return BadRequest();
+
+            var student = CollegeRepository.students.Where(s => s.Id == id).FirstOrDefault();
+
+            // NotFound - 404 - Client error
+            if (student == null)
+                return NotFound($"The Student with Id {id} Not Found.");
+
+            // Ok - 200 - Success
+            return Ok(student);
         }
 
         [HttpGet]
+        // string is not use as a routing constrain, in place of that we can use alpha
         [Route("{name:alpha}",Name = "GetStudentByName")]
         public Student GetStudentById(string name)
         {
