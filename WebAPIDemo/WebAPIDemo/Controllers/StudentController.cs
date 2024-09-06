@@ -62,14 +62,14 @@ namespace WebAPIDemo.Controllers
         [HttpGet]
         // string is not use as a routing constrain, in place of that we can use alpha
         [Route("{name:alpha}",Name = "GetStudentByName")]
-        public Student GetStudentById(string name)
+        public Student GetStudentByName(string name)
         {
             return CollegeRepository.students.Where(s => s.Name == name).FirstOrDefault();
         }
 
         [HttpPost]
         [Route("Create")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult<StudentDTO> CreateStudent([FromBody]StudentDTO model)
@@ -87,7 +87,8 @@ namespace WebAPIDemo.Controllers
             };
             model.Id = newId;
             CollegeRepository.students.Add(st);
-            return Ok(model);
+            // Create URL/Location for perticular id
+            return CreatedAtRoute("GetStudentById", new { id = model.Id }, model);
         }
     }
 }
