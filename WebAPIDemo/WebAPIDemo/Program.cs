@@ -1,4 +1,5 @@
 
+using Serilog;
 using WebAPIDemo.MyLogging;
 
 namespace WebAPIDemo
@@ -9,9 +10,15 @@ namespace WebAPIDemo
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Logging.ClearProviders();
-            builder.Logging.AddConsole();
-            builder.Logging.AddDebug();
+            //builder.Logging.ClearProviders();
+            //builder.Logging.AddConsole();
+            //builder.Logging.AddDebug();
+
+            Log.Logger = new LoggerConfiguration().
+                MinimumLevel.Debug().
+                WriteTo.File("Log/log.txt", rollingInterval: RollingInterval.Minute).CreateLogger();
+
+            builder.Host.UseSerilog();
 
             // Add services to the container.
 
