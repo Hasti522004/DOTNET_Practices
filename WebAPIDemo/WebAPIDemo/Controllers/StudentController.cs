@@ -11,8 +11,31 @@ namespace WebAPIDemo.Controllers
         [Route("All")]
         public ActionResult<IEnumerable<Student>> GetStudents()
         {
+            // using ADO
+            var students = new List<StudentDTO>();
+            foreach(var item in CollegeRepository.students)
+            {
+                StudentDTO obj = new StudentDTO()
+                {
+                    Id = item.Id,
+                    Name = item.Name,
+                    Email = item.Email,
+                    Address = item.Address
+                };
+                students.Add(obj);
+            }
+
+            // using Linq
+            var std = CollegeRepository.students.Select(s => new StudentDTO()
+            {
+                Id = s.Id,
+                Name = s.Name,
+                Email = s.Email,
+                Address = s.Address
+            });
+
             // Ok - 200 - Success
-            return Ok(CollegeRepository.students);
+            return Ok(students);
         }
 
         [HttpGet("{id:int}",Name ="GetStudentById")]
@@ -20,7 +43,7 @@ namespace WebAPIDemo.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult<Student> GetStudentById(int id)
+        public ActionResult<Student> GetStudentById(int id)  
         {
             // BadRequest - 400 - Client Error
             if (id <= 0)
@@ -42,6 +65,29 @@ namespace WebAPIDemo.Controllers
         public Student GetStudentById(string name)
         {
             return CollegeRepository.students.Where(s => s.Name == name).FirstOrDefault();
+        }
+
+        [HttpPost]
+        [Route("Create")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public ActionResult<StudentDTO> CreateStudent([FromBody]StudentDTO model)
+        {
+            if (model == null)
+                return BadRequest();
+
+            int newId = CollegeRepository.students.LastOrDefault().Id + 1;
+            Student st = new Student
+            {
+                Id = newId,
+                Name = model.Name,
+                Email = model.Email,
+                Address = model.Address
+            };
+            model.Id = newId;
+            CollegeRepository.students.Add(st);
+            return Ok(model);
         }
     }
 }
