@@ -10,9 +10,9 @@ namespace WebAPIDemo.Controllers
         //1. Strongly coupled/tightly coupled
 
         private readonly IMyLogger _mylogger;
-        public DemoOfDIController()
+        public DemoOfDIController(IMyLogger mylogger)
         {
-            _mylogger = new LogToDB();
+            _mylogger = mylogger;
         }
         [HttpGet]
         public ActionResult Index()
