@@ -8,10 +8,17 @@ namespace WebAPIDemo.Controllers
     [Route("api/")]
     public class StudentController : Controller
     {
+        private readonly ILogger<StudentController> _logger;
+        public StudentController(ILogger<StudentController> logger)
+        {
+            _logger = logger;
+        }
+
         [HttpGet]
         [Route("All")]
         public ActionResult<IEnumerable<Student>> GetStudents()
         {
+            _logger.LogInformation("Student Data are Getting Started");
             // using ADO
             var students = new List<StudentDTO>();
             foreach (var item in CollegeRepository.students)
