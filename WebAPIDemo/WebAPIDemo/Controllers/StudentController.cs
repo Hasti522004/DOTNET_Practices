@@ -3,7 +3,7 @@ using WebAPIDemo.Model;
 
 namespace WebAPIDemo.Controllers
 {
-    [Controller]
+    [ApiController]
     [Route("api/")]
     public class StudentController : Controller
     {
