@@ -41,6 +41,7 @@ namespace WebAPIUserManagement.Controllers
         }
 
         [HttpPost]
+        [Route("Login")]
         public IActionResult Login(LoginDTO login)
         {
             var user = _myDbContext.Users.FirstOrDefault(x => x.Email == login.Email && x.Password == login.Password);
