@@ -100,7 +100,7 @@ namespace User.Management.API.Controllers
                 issuer: _configuration["JWT:ValidIssuer"],
                 audience: _configuration["JWT:ValidAudience"],
                 expires: DateTime.Now.AddHours(1),
-                claims: authClaims,
+                claims: authClaims, 
                 signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
             );
             return token;
