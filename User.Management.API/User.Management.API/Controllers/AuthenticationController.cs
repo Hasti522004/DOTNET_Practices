@@ -74,7 +74,8 @@ namespace User.Management.API.Controllers
                 var authClaims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Name,user.UserName),
-                    new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString())
+                    new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString()),
+                    new Claim("age","18")
                 };
                 var userRoles = await _userManager.GetRolesAsync(user);
                 foreach(var role in userRoles)

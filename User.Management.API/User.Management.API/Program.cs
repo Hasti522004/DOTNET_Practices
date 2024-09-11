@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -35,7 +36,17 @@ builder.Services.AddAuthentication(options =>
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]))
     };
 }
-); 
+);
+
+// Adding AUthorization
+builder.Services.AddAuthorization(configure =>
+{
+    configure.AddPolicy("AtLeast18", policyBuilder =>
+    {
+        policyBuilder.AddRequirements(new AgeRequirement(18));
+    });
+});
+builder.Services.AddSingleton<IAuthorizationHandler,AgeRequirementHandler>();
 
 // Add services to the container.
 
