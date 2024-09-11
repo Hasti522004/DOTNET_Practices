@@ -10,9 +10,9 @@ namespace User.Management.API.Controllers
     public class AdminController : ControllerBase
     {
         [HttpGet("employees")]
-        public IEnumerable<String> Get()
+        public IEnumerable<string> Get()
         {
-            return new List<String> { "Hasti", "Tarannum","Veer"};
+            return new List<string> { "Hasti", "Tarannum","Veer"};
         }
     }
 }
