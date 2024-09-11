@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace User.Management.API.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class AdminController : ControllerBase
