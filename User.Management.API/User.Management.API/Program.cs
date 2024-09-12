@@ -1,3 +1,4 @@
+using InMemoryCachingDemo.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -12,9 +13,10 @@ var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 
 builder.Services.AddHealthChecks().AddCheck<DatabaseHealthCheck>("Database");
-
 // For Entity Framework
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("conn")));
+builder.Services.AddMemoryCache();
+builder.Services.AddScoped<LocationRepository>(); // Add this line
 
 // For Identity
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()

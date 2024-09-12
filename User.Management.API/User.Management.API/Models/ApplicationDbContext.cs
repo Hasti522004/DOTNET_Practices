@@ -24,5 +24,8 @@ namespace User.Management.API.Models
                     new IdentityRole() { Name = "HR", ConcurrencyStamp = "3", NormalizedName = "HR"}
                 );
         }
+        public DbSet<Country> Countries { get; set; }
+        public DbSet<State> States { get; set; }
+        public DbSet<City> Cities { get; set; }
     }
 }
