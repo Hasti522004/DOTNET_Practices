@@ -1,10 +1,12 @@
 using InMemoryCachingDemo.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Net;
 using System.Text;
 using User.Management.API.Health;
 using User.Management.API.Models;
@@ -92,8 +94,24 @@ builder.Services.AddSwaggerGen(option =>
     });
 });
 
-var app = builder.Build();
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
+var app = builder.Build();
+app.UseExceptionHandler(
+    options =>
+    {
+        options.Run(
+            async context =>
+            {
+                context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                var ex = context.Features.Get<ExceptionHandlerFeature>();
+                if(ex != null)
+                {
+                    await context.Response.WriteAsync(ex.Error.Message);
+                }
+            }    
+        );
+    });
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
