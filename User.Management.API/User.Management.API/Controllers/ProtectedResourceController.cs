@@ -7,11 +7,10 @@ namespace User.Management.API.Controllers
     {
         [Route("protectedInfo")]
         [HttpGet]
-        //[Authorize("AtLeast18")]
+        [Authorize("AtLeast18")]
         public IActionResult Index()
         {
-            throw new Exception("Global Exception Handler");
-            // return Ok("You can See this message means you are a valid user.");
+            return Ok("You can See this message means you are a valid user.");
         }
     }
 }

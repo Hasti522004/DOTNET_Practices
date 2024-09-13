@@ -97,6 +97,13 @@ builder.Services.AddSwaggerGen(option =>
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
 var app = builder.Build();
+
+app.Use(async (context, next) =>
+{
+    await context.Response.WriteAsync("Welcome to Hasti Hajipara's Project");
+    await next(context);
+});
+
 app.UseExceptionHandler(
     options =>
     {
